@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2 class="mb-4">Tableau de bord</h2>
+<div class="card shadow-sm">
+    <div class="card-body">
+        <table class="table table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>Médicament</th>
+                    <th>Prix</th>
+                    <th>Stock</th>
+                    <th>Statut</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for med in medicaments %}
+                <tr>
+                    <td>{{ med.nom }}</td>
+                    <td>{{ med.prix }} FCFA</td>
+                    <td>{{ med.quantite_stock }}</td>
+                    <td>
+                        {% if med.quantite_stock == 0 %}
+                            <span class="badge bg-danger">Rupture</span>
+                        {% elif med.quantite_stock < 10 %}
+                            <span class="badge bg-warning text-dark">Stock faible</span>
+                        {% else %}
+                            <span class="badge bg-success">En stock</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="4" class="text-center">Aucun médicament en base.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
